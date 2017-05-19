@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SpringBoot my first WebbApp</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+</head>
+
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(reservations)}">
+        <h2>ReservationList</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>startData</th>
+                <th>timeOfMeeting</th>
+                <th>remove</th>
+            </tr>
+
+            <tr th:each="reservation : ${reservations}">
+                <td th:text="${reservation.id}"></td>
+                <td th:text="${reservation.start}"></td>
+                <td th:text="${reservation.time}"></td>
+
+                <td><a th:href="@{/remove/(id=${reservation.id})}" >Delete</a></td>
+            </tr>
+
+            <form method="post">
+                <input type="number" name="timeOfMeeting"  required="" pattern="[0-9]" value="" />
+                <input type="datetime-local" required="" pattern="[0-9]{4}[-][0-9]{2}[-][0-9]{2}[.][0-9]{2}[:][0-9]{2}" value="" name="timeanddate"/>
+                <button type="submit">Add Reservation</button>
+            </form>
+
+        </table>
+    </div>
+        <div th:if="${not #lists.isEmpty(offer)}">
+            <h2>OfferReservationList</h2>
+            <table class="table table-striped2">
+                <tr>
+                    <th>Id</th>
+                    <th>startData</th>
+                    <th>timeOfMeeting</th>
+                    <th>Add</th>
+                </tr>
+
+                <tr th:each="offer : ${offer}">
+                    <td >no</td>
+                    <td th:text="${offer.start}"></td>
+                    <td th:text="${offer.time}" ></td>
+                    <td><a th:href="@{/addOffer/(time=${offer.time},start=${offer.start})}" >Add</a></td>
+                </tr>
+            </table>
+    </div>
+</div>
+</body>
+</html>
